@@ -1,0 +1,26 @@
+apply from: '../dependencies.gradle'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        applicationId "com.afollestad.inlineactivityresultsample"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode versions.publishVersionCode
+        versionName versions.publishVersion
+    }
+}
+
+dependencies {
+    implementation project(':library')
+
+    implementation 'androidx.annotation:annotation:' + versions.androidxAnnotations
+    implementation 'androidx.appcompat:appcompat:' + versions.androidxCore
+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:' + versions.kotlin
+}
