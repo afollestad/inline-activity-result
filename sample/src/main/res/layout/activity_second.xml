@@ -9,30 +9,33 @@
     android:padding="16dp"
     >
 
-  <EditText
+  <androidx.appcompat.widget.AppCompatEditText
       android:id="@+id/input"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="24dp"
       android:hint="Type something…"
       android:inputType="text|textCapSentences"
+      android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
       tools:ignore="Autofill,HardcodedText"
       />
 
-  <Button
+  <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/button1"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="56dp"
       android:text="Success"
       tools:ignore="HardcodedText"
+      style="@style/Widget.MaterialComponents.Button"
       />
 
-  <Button
+  <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/button2"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="56dp"
       android:text="Failure"
       tools:ignore="HardcodedText"
+      style="@style/Widget.MaterialComponents.Button"
       />
 
 </LinearLayout>

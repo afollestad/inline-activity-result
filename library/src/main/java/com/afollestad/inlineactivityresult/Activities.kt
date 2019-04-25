@@ -28,7 +28,7 @@ import com.afollestad.inlineactivityresult.internal.OnResult
  * Starts Activity [T] with the given [requestCode]. The result is delivered to [onResult].
  */
 inline fun <reified T : Activity> FragmentActivity.startActivityForResult(
-  requestCode: Int,
+  requestCode: Int = 69,
   noinline onResult: OnResult
 ) = startActivityForResult<T>(Bundle(), requestCode, onResult)
 
@@ -38,7 +38,7 @@ inline fun <reified T : Activity> FragmentActivity.startActivityForResult(
  */
 inline fun <reified T : Activity> FragmentActivity.startActivityForResult(
   data: Bundle,
-  requestCode: Int,
+  requestCode: Int = 70,
   noinline onResult: OnResult
 ) {
   val intent = Intent(this, T::class.java).putExtras(data)
@@ -51,7 +51,7 @@ inline fun <reified T : Activity> FragmentActivity.startActivityForResult(
  */
 fun FragmentActivity.startActivityForResult(
   intent: Intent,
-  requestCode: Int,
+  requestCode: Int = 71,
   onResult: OnResult
 ) {
   InlineActivityResult.instance()

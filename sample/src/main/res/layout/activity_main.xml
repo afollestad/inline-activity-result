@@ -9,12 +9,13 @@
     android:padding="16dp"
     >
 
-  <Button
+  <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/button"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="56dp"
       android:text="Launch Second Activity"
       tools:ignore="HardcodedText"
+      style="@style/Widget.MaterialComponents.Button"
       />
 
 </LinearLayout>

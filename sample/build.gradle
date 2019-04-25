@@ -21,6 +21,7 @@ dependencies {
 
     implementation 'androidx.annotation:annotation:' + versions.androidxAnnotations
     implementation 'androidx.appcompat:appcompat:' + versions.androidxCore
+    implementation 'com.google.android.material:material:' + versions.androidxMaterial
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:' + versions.kotlin
 }

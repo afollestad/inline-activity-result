@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     button.setOnClickListener {
-      startActivityForResult<SecondActivity>(20) { success, data ->
+      startActivityForResult<SecondActivity> { success, data ->
         toast("Success? $success\nInput: ${data.getStringExtra("input")}")
       }
     }
