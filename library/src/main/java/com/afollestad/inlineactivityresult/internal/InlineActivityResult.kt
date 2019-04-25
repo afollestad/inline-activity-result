@@ -17,14 +17,15 @@ package com.afollestad.inlineactivityresult.internal
 
 import android.content.Intent
 import androidx.annotation.CheckResult
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.FragmentManager
 import com.afollestad.inlineactivityresult.util.transact
 
 /** @author Aidan Follestad (@afollestad) */
-internal class InlineActivityResult {
-  private var pending: MutableMap<Int, PendingResult> = mutableMapOf()
+internal open class InlineActivityResult {
+  @VisibleForTesting var pending: MutableMap<Int, PendingResult> = mutableMapOf()
 
-  fun schedule(
+  open fun schedule(
     fragmentManager: FragmentManager,
     intent: Intent,
     requestCode: Int,
@@ -62,15 +63,29 @@ internal class InlineActivityResult {
     pending.remove(requestCode)
   }
 
+  fun destroy() {
+    pending.clear()
+  }
+
   companion object {
+    @VisibleForTesting var instanceCreator: (() -> InlineActivityResult)? = null
+
     @CheckResult fun instance(): InlineActivityResult {
-      return instance
-          ?: InlineActivityResult().also { instance = it }
+      val defaultCreator = {
+        instance ?: InlineActivityResult().also { instance = it }
+      }
+      return instanceCreator?.invoke() ?: defaultCreator()
     }
 
     @CheckResult fun getTag(requestCode: Int): String = "${FRAGMENT_TAG_PREFIX}_$requestCode"
 
-    private const val FRAGMENT_TAG_PREFIX = "inline_activity_result_"
+    fun destroy() {
+      instance?.destroy()
+      instance = null
+      instanceCreator = null
+    }
+
+    @VisibleForTesting const val FRAGMENT_TAG_PREFIX = "inline_activity_result_"
     private var instance: InlineActivityResult? = null
   }
 }

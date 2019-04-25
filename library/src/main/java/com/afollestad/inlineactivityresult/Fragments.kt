@@ -33,15 +33,15 @@ inline fun <reified T : Activity> Fragment.startActivityForResult(
 ) = startActivityForResult<T>(Bundle(), requestCode, onResult)
 
 /**
- * Starts Activity [T] with extras in [data], and the given [requestCode]. The result
+ * Starts Activity [T] with extras in [extras], and the given [requestCode]. The result
  * is delivered to [onResult].
  */
 inline fun <reified T : Activity> Fragment.startActivityForResult(
-  data: Bundle = Bundle(),
+  extras: Bundle = Bundle(),
   requestCode: Int = 70,
   noinline onResult: OnResult
 ) {
-  val intent = Intent(context, T::class.java).putExtras(data)
+  val intent = Intent(context, T::class.java).putExtras(extras)
   startActivityForResult(intent, requestCode, onResult)
 }
 
@@ -54,7 +54,7 @@ fun Fragment.startActivityForResult(
   requestCode: Int = 71,
   onResult: OnResult
 ) {
-  check(activity != null) {
+  check(isAdded && activity != null) {
     "Fragment must be attached to an Activity."
   }
   InlineActivityResult.instance()

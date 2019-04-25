@@ -33,15 +33,15 @@ inline fun <reified T : Activity> FragmentActivity.startActivityForResult(
 ) = startActivityForResult<T>(Bundle(), requestCode, onResult)
 
 /**
- * Starts Activity [T] with extras in [data], and the given [requestCode]. The result
+ * Starts Activity [T] with extras in [extras], and the given [requestCode]. The result
  * is delivered to [onResult].
  */
 inline fun <reified T : Activity> FragmentActivity.startActivityForResult(
-  data: Bundle,
+  extras: Bundle,
   requestCode: Int = 70,
   noinline onResult: OnResult
 ) {
-  val intent = Intent(this, T::class.java).putExtras(data)
+  val intent = Intent(this, T::class.java).putExtras(extras)
   startActivityForResult(intent, requestCode, onResult)
 }
 
@@ -53,12 +53,9 @@ fun FragmentActivity.startActivityForResult(
   intent: Intent,
   requestCode: Int = 71,
   onResult: OnResult
-) {
-  InlineActivityResult.instance()
-      .schedule(
-          fragmentManager = supportFragmentManager,
-          intent = intent,
-          requestCode = requestCode,
-          onResult = onResult
-      )
-}
+) = InlineActivityResult.instance().schedule(
+    fragmentManager = supportFragmentManager,
+    intent = intent,
+    requestCode = requestCode,
+    onResult = onResult
+)

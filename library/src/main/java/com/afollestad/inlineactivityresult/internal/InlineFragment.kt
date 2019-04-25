@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 /** @author Aidan Follestad (@afollestad) */
 @RestrictTo(LIBRARY)
 class InlineFragment : Fragment() {
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (!didStart()) {
