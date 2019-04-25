@@ -18,7 +18,7 @@ package com.afollestad.inlineactivityresult.internal
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import androidx.fragment.app.FragmentManager
-import com.afollestad.inlineactivityresult.internal.InlineActivityResult.Companion.FRAGMENT_TAG
+import com.afollestad.inlineactivityresult.internal.InlineActivityResult.Companion.getTag
 import com.afollestad.inlineactivityresult.util.transact
 
 typealias OnResult = (success: Boolean, data: Intent) -> Unit
@@ -29,16 +29,18 @@ internal data class PendingResult(
   private var fragmentManager: FragmentManager?
 ) {
   fun deliverResult(
+    requestCode: Int,
     resultCode: Int,
     data: Intent
   ) {
     onResult?.invoke(resultCode == RESULT_OK, data)
     onResult = null
-    removeFragment()
+    removeFragment(requestCode)
   }
 
-  private fun removeFragment() {
-    val fragment = fragmentManager?.findFragmentByTag(FRAGMENT_TAG) ?: return
+  private fun removeFragment(requestCode: Int) {
+    val tag = getTag(requestCode)
+    val fragment = fragmentManager?.findFragmentByTag(tag) ?: return
     fragmentManager?.transact { remove(fragment) }
     fragmentManager = null
   }

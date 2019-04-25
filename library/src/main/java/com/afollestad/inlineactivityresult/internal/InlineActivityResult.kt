@@ -16,12 +16,13 @@
 package com.afollestad.inlineactivityresult.internal
 
 import android.content.Intent
+import androidx.annotation.CheckResult
 import androidx.fragment.app.FragmentManager
 import com.afollestad.inlineactivityresult.util.transact
 
 /** @author Aidan Follestad (@afollestad) */
 internal class InlineActivityResult {
-  private var pending: PendingResult? = null
+  private var pending: MutableMap<Int, PendingResult> = mutableMapOf()
 
   fun schedule(
     fragmentManager: FragmentManager,
@@ -29,8 +30,10 @@ internal class InlineActivityResult {
     requestCode: Int,
     onResult: OnResult
   ) {
-    check(pending == null) { "There is already a pending request." }
-    pending = PendingResult(
+    check(!pending.containsKey(requestCode)) {
+      "There is already a pending request for requestCode $requestCode."
+    }
+    pending[requestCode] = PendingResult(
         onResult = onResult,
         fragmentManager = fragmentManager
     )
@@ -39,26 +42,35 @@ internal class InlineActivityResult {
         launchIntent = intent,
         requestCode = requestCode
     )
-    fragmentManager.transact { add(fragment, FRAGMENT_TAG) }
+    fragmentManager.transact {
+      add(fragment, getTag(requestCode))
+    }
   }
 
   fun deliverResult(
+    requestCode: Int,
     resultCode: Int,
     data: Intent
   ) {
-    pending?.deliverResult(
-        resultCode, data
-    ) ?: throw IllegalStateException("There's no pending request.")
-    pending = null
+    val pendingRequest = pending[requestCode]
+        ?: throw IllegalStateException("There's no pending request for requestCode $requestCode.")
+    pendingRequest.deliverResult(
+        requestCode = requestCode,
+        resultCode = resultCode,
+        data = data
+    )
+    pending.remove(requestCode)
   }
 
   companion object {
-    fun instance(): InlineActivityResult {
+    @CheckResult fun instance(): InlineActivityResult {
       return instance
           ?: InlineActivityResult().also { instance = it }
     }
 
-    const val FRAGMENT_TAG = "inline_activity_result"
+    @CheckResult fun getTag(requestCode: Int): String = "${FRAGMENT_TAG_PREFIX}_$requestCode"
+
+    private const val FRAGMENT_TAG_PREFIX = "inline_activity_result_"
     private var instance: InlineActivityResult? = null
   }
 }
