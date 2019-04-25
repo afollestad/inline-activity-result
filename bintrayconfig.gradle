@@ -39,7 +39,7 @@ publish {
   groupId = 'com.afollestad'
   artifactId = 'inline-activity-result'
   publishVersion = versions.publishVersion
-  desc = 'Receive Activity results from the same place where you launched them.'
+  desc = 'Receive Activity results inline in a callback, without any boilerplate.'
   website = 'https://github.com/afollestad/inline-activity-result'
   dryRun = false
 }
