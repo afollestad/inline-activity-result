@@ -46,6 +46,7 @@ class InlineFragment : Fragment() {
     if (requestCode == requestCode()) {
       InlineActivityResult.instance()
           .deliverResult(
+              requestCode = requestCode,
               resultCode = resultCode,
               data = data ?: Intent()
           )
