@@ -21,6 +21,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import com.afollestad.inlineactivityresult.internal.InlineActivityResult
+import com.afollestad.inlineactivityresult.internal.OnResult
 
 /**
  * Starts Activity [T] with the given [requestCode]. The result is delivered to [onResult].

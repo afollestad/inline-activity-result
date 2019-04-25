@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.afollestad.inlineactivityresult
+package com.afollestad.inlineactivityresult.internal
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import androidx.fragment.app.FragmentManager
-
-typealias OnResult = (success: Boolean, data: Intent) -> Unit
+import com.afollestad.inlineactivityresult.util.transact
 
 /** @author Aidan Follestad (@afollestad) */
 internal class InlineActivityResult {
-  private val pending: MutableMap<Int, OnResult> = mutableMapOf()
+  private var pending: PendingResult? = null
 
   fun schedule(
     fragmentManager: FragmentManager,
@@ -31,39 +29,36 @@ internal class InlineActivityResult {
     requestCode: Int,
     onResult: OnResult
   ) {
-    check(!pending.containsKey(requestCode)) {
-      "There is already a pending request for request code $requestCode"
-    }
-    pending[requestCode] = onResult
+    check(pending == null) { "There is already a pending request." }
+    pending = PendingResult(
+        onResult = onResult,
+        fragmentManager = fragmentManager
+    )
 
     val fragment = InlineFragment.newInstance(
         launchIntent = intent,
         requestCode = requestCode
     )
-    fragmentManager
-        .beginTransaction()
-        .add(fragment, FRAGMENT_TAG)
-        .commit()
+    fragmentManager.transact { add(fragment, FRAGMENT_TAG) }
   }
 
-  fun takeResult(
-    requestCode: Int,
+  fun deliverResult(
     resultCode: Int,
     data: Intent
   ) {
-    val pendingResult = pending[requestCode]
-    requireNotNull(pendingResult) {
-      "Couldn't find any pending result for request code $requestCode"
-    }
-    pendingResult(resultCode == RESULT_OK, data)
+    pending?.deliverResult(
+        resultCode, data
+    ) ?: throw IllegalStateException("There's no pending request.")
+    pending = null
   }
 
   companion object {
     fun instance(): InlineActivityResult {
-      return instance ?: InlineActivityResult().also { instance = it }
+      return instance
+          ?: InlineActivityResult().also { instance = it }
     }
 
+    const val FRAGMENT_TAG = "inline_activity_result"
     private var instance: InlineActivityResult? = null
-    private const val FRAGMENT_TAG = "inline_activity_result"
   }
 }

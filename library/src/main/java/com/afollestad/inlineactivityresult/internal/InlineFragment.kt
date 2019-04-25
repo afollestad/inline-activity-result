@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.afollestad.inlineactivityresult
+package com.afollestad.inlineactivityresult.internal
 
 import android.content.Context
 import android.content.Intent
@@ -45,43 +45,42 @@ class InlineFragment : Fragment() {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == requestCode()) {
       InlineActivityResult.instance()
-          .takeResult(
-              requestCode = requestCode,
+          .deliverResult(
               resultCode = resultCode,
               data = data ?: Intent()
           )
-      finish()
     }
   }
 
   @CheckResult private fun didStart(): Boolean {
-    return arguments?.getBoolean(KEY_DID_START) ?: throw IllegalStateException(
+    return arguments?.getBoolean(
+        KEY_DID_START
+    ) ?: throw IllegalStateException(
         "No arguments provided"
     )
   }
 
   private fun didStart(didStart: Boolean) {
-    arguments?.putBoolean(KEY_DID_START, didStart) ?: throw IllegalStateException(
+    arguments?.putBoolean(
+        KEY_DID_START, didStart
+    ) ?: throw IllegalStateException(
         "No launch intent provided"
     )
   }
 
   @CheckResult private fun launchIntent(): Intent {
-    return arguments?.getParcelable(KEY_LAUNCH_INTENT) ?: throw IllegalStateException(
+    return arguments?.getParcelable(
+        KEY_LAUNCH_INTENT
+    ) ?: throw IllegalStateException(
         "No launch intent provided"
     )
   }
 
   @CheckResult private fun requestCode(): Int {
-    return arguments?.getInt(KEY_REQUEST_CODE, 0)?.takeIf { it != 0 }
+    return arguments?.getInt(
+        KEY_REQUEST_CODE, 0
+    )?.takeIf { it != 0 }
         ?: throw IllegalStateException("No non-zero request code provided")
-  }
-
-  private fun finish() {
-    activity?.supportFragmentManager
-        ?.beginTransaction()
-        ?.remove(this)
-        ?.commit()
   }
 
   companion object {
@@ -89,12 +88,17 @@ class InlineFragment : Fragment() {
       launchIntent: Intent,
       requestCode: Int
     ): InlineFragment {
-      return InlineFragment().apply {
-        arguments = Bundle().apply {
-          putParcelable(KEY_LAUNCH_INTENT, launchIntent)
-          putInt(KEY_REQUEST_CODE, requestCode)
-        }
-      }
+      return InlineFragment()
+          .apply {
+            arguments = Bundle().apply {
+              putParcelable(
+                  KEY_LAUNCH_INTENT, launchIntent
+              )
+              putInt(
+                  KEY_REQUEST_CODE, requestCode
+              )
+            }
+          }
     }
 
     private const val KEY_LAUNCH_INTENT = "launch_intent"
