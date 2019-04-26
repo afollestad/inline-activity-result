@@ -5,9 +5,22 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4679f36623124f4da988e957e545c8df)](https://www.codacy.com/app/drummeraidan_50/inline-activity-result?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=afollestad/inline-activity-result&amp;utm_campaign=Badge_Grade)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+---
+
+## Gradle Dependency
+
+The library is hosted on jCenter.
+
+```gradle
+dependencies {
+  ...
+  implementation 'com.afollestad:inline-activity-result:0.1.0'
+}
+```
+
 ## What does it do?
 
-### WITH this library
+#### WITH this library
 
 You call `startActivityForResult`, providing an Activity to launch as the generic type. You 
 receive the result in a callback *without* having to override `onActivityResult`. And, you don't 
@@ -31,7 +44,7 @@ class NewActivity : AppCompatActivity() {
 }
 ```
 
-### WithOUT this library
+#### WithOUT this library
 
 Well, the code speaks for itself.
 
@@ -63,20 +76,23 @@ class OldActivity : AppCompatActivity() {
 }
 ```
 
-### What's the big deal?
+#### What's the big deal?
 
 You do not have to override `onActivityResult` at all. All of your results are received inline. 
 This may not seem like a big deal with the sample above, but it gets more valuable as you start to 
-have more than one possible result. This can all be used from within a `Fragment` as well. 
+have more than one possible result. And things are scoped to the callsite, which be nice in various 
+scenarios.
+ 
+Note that this can all be used from within a `Fragment` as well. 
 
 ---
 
-## Variants of startActivityForResult
+# Variants of startActivityForResult
 
 There are multiple variants `startActivityForResult` you can use for different use cases. *All of 
 them allow you to pass an optional `requestCode` parameter, but this should generally be unnecessary.*
 
-### Simple
+#### Simple
 
 The simplest you can get is just a generic type and the callback.
 
@@ -86,7 +102,7 @@ startActivityForResult<OtherActivity> { success, data ->
 }
 ```
 
-### With Extras
+#### With Extras
 
 You can provide a `Bundle` of extras to the destination Activity:
 
@@ -100,7 +116,7 @@ startActivityForResult<OtherActivity>(extras) { success, data ->
     
 ```
 
-### Full Intent
+#### Full Intent
 
 And finally, you can use a full intent. In this variant you do not provide a generic parameter.
 
