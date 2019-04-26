@@ -87,7 +87,7 @@ Note that this can all be used from within a `Fragment` as well.
 
 ---
 
-# Variants of startActivityForResult
+## Variants of startActivityForResult
 
 There are multiple variants `startActivityForResult` you can use for different use cases. *All of 
 them allow you to pass an optional `requestCode` parameter, but this should generally be unnecessary.*
