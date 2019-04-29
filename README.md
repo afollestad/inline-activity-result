@@ -80,7 +80,7 @@ class OldActivity : AppCompatActivity() {
 
 You do not have to override `onActivityResult` at all. All of your results are received inline. 
 This may not seem like a big deal with the sample above, but it gets more valuable as you start to 
-have more than result case to handle. And things are scoped to the callsite, which can be very nice in various 
+have more than one result case to handle. And things are scoped to the callsite, which can be very nice in various 
 scenarios.
  
 Note that this can all be used from within a `Fragment` as well. 
