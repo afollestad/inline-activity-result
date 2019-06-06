@@ -32,9 +32,8 @@ class NewActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    val extras = Bundle().apply {
-      putString("some_extra", "Hello, World!")
-    }
+    val extras = Bundle()
+        .putString("some_extra", "Hello, World!")
     startActivityForResult<OtherActivity>(extras) { success, data ->
       if (success) {
         toast("Got successful result!")
@@ -107,9 +106,8 @@ startActivityForResult<OtherActivity> { success, data ->
 You can provide a `Bundle` of extras to the destination Activity:
 
 ```kotlin
-val extras = Bundle().apply {
-    putString("some_extra", "Hello, World!")
-}
+val extras = Bundle()
+    .putString("some_extra", "Hello, World!")
 startActivityForResult<OtherActivity>(extras) { success, data ->
     // Do something
 }
@@ -121,9 +119,8 @@ startActivityForResult<OtherActivity>(extras) { success, data ->
 And finally, you can use a full intent. In this variant you do not provide a generic parameter.
 
 ```kotlin
-val intent = Intent(Intent.ACTION_VIEW).apply {
-    setData("content://some-uri".toUri())
-}
+val intent = Intent(Intent.ACTION_VIEW)
+    .setData("content://some-uri".toUri())
 startActivityForResult(intent) { success, data ->
   // Do something
 }
