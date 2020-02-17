@@ -1,27 +1,14 @@
-apply from: '../dependencies.gradle'
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+ext.module_group = "com.afollestad"
+ext.module_name = "inlineactivityresultsample"
+ext.min_sdk = 21
 
-android {
-    compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
-
-    defaultConfig {
-        applicationId "com.afollestad.inlineactivityresultsample"
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.compileSdk
-        versionCode versions.publishVersionCode
-        versionName versions.publishVersion
-    }
-}
+apply from: rootProject.file("gradle/android_application_config.gradle")
 
 dependencies {
-    implementation project(':library')
+  implementation project(":coroutines")
 
-    implementation 'androidx.annotation:annotation:' + versions.androidxAnnotations
-    implementation 'androidx.appcompat:appcompat:' + versions.androidxCore
-    implementation 'com.google.android.material:material:' + versions.androidxMaterial
+  implementation deps.androidx.ktx.lifecycle
+  implementation deps.androidx.material
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:' + versions.kotlin
+  implementation deps.kotlin.stdlib8
 }

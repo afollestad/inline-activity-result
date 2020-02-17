@@ -1,0 +1,13 @@
+ext.module_group = "com.afollestad.inline-activity-result"
+ext.module_name = "rxjava"
+
+apply from: rootProject.file("gradle/android_publishable_library_config.gradle")
+
+dependencies {
+  api project(":core")
+  api deps.rxjava.rxjava2
+
+  implementation deps.kotlin.stdlib8
+
+  testImplementation project(":testutil")
+}

@@ -13,22 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.afollestad.inlineactivityresultsample
+package com.afollestad.inlineactivityresult.tests
 
-import android.content.Context
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import java.lang.reflect.Method
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
-private var toast: Toast? = null
+@Config(manifest = Config.NONE, sdk = [28])
+class NoManifestTestRunner(testClass: Class<*>) : RobolectricTestRunner(testClass) {
 
-fun Context.toast(message: String) {
-  toast?.cancel()
-  toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
-      .apply { show() }
-}
-
-fun Fragment.toast(message: String) {
-  toast?.cancel()
-  toast = Toast.makeText(activity, message, Toast.LENGTH_LONG)
-      .apply { show() }
+  override fun getConfig(method: Method): Config {
+    return NoManifestTestRunner::class.java.getAnnotation(Config::class.java)!!
+  }
 }

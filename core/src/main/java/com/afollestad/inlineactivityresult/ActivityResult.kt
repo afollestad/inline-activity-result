@@ -13,22 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.afollestad.inlineactivityresultsample
+package com.afollestad.inlineactivityresult
 
-import android.content.Context
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import android.content.Intent
 
-private var toast: Toast? = null
+typealias OnResult = (success: Boolean, data: Intent) -> Unit
 
-fun Context.toast(message: String) {
-  toast?.cancel()
-  toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
-      .apply { show() }
-}
-
-fun Fragment.toast(message: String) {
-  toast?.cancel()
-  toast = Toast.makeText(activity, message, Toast.LENGTH_LONG)
-      .apply { show() }
-}
+/** @author Aidan Follestad (@afollestad) */
+data class ActivityResult(
+  val success: Boolean,
+  val data: Intent
+)

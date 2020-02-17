@@ -13,22 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.afollestad.inlineactivityresultsample
+package com.afollestad.inlineactivityresult.tests
 
-import android.content.Context
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import com.nhaarman.mockitokotlin2.KArgumentCaptor
 
-private var toast: Toast? = null
-
-fun Context.toast(message: String) {
-  toast?.cancel()
-  toast = Toast.makeText(this, message, Toast.LENGTH_LONG)
-      .apply { show() }
-}
-
-fun Fragment.toast(message: String) {
-  toast?.cancel()
-  toast = Toast.makeText(activity, message, Toast.LENGTH_LONG)
-      .apply { show() }
-}
+val <T> KArgumentCaptor<T>.singleValue: T
+  get() {
+    return allValues.singleOrNull() ?: throw AssertionError("Captor got no values.")
+  }

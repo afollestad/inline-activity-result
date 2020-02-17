@@ -1,0 +1,16 @@
+ext.module_group = "com.afollestad.inline-activity-result"
+ext.module_name = "testutil"
+
+apply from: rootProject.file("gradle/android_library_config.gradle")
+
+dependencies {
+  api deps.kotlin.test.mockito
+  api deps.test.robolectric
+  api deps.test.junit
+  api deps.test.mockito_core
+  api deps.test.mockito_inline
+  api deps.test.truth
+
+  implementation deps.androidx.app_compat
+  implementation deps.kotlin.stdlib8
+}
