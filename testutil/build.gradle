@@ -3,6 +3,12 @@ ext.module_name = "testutil"
 
 apply from: rootProject.file("gradle/android_library_config.gradle")
 
+android {
+  lintOptions {
+    abortOnError false
+  }
+}
+
 dependencies {
   api deps.kotlin.test.mockito
   api deps.test.robolectric
