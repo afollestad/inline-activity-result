@@ -24,7 +24,7 @@
 
 ### Gradle Dependency
 
-[ ![Download](https://api.bintray.com/packages/drummer-aidan/maven/inline-activity-result/images/download.svg) ](https://bintray.com/drummer-aidan/maven/inline-activity-result/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/drummer-aidan/maven/inline-activity-result%3Acore/images/download.svg) ](https://bintray.com/drummer-aidan/maven/inline-activity-result%3Acore/_latestVersion)
 
 ```gradle
 dependencies {
@@ -97,7 +97,7 @@ startActivityForResult(intent) { success, data ->
 
 ### Gradle Dependency
 
-[ ![Download](https://api.bintray.com/packages/drummer-aidan/maven/inline-activity-result/images/download.svg) ](https://bintray.com/drummer-aidan/maven/inline-activity-result/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/drummer-aidan/maven/inline-activity-result%3Acoroutines/images/download.svg) ](https://bintray.com/drummer-aidan/maven/inline-activity-result%3Acoroutines/_latestVersion)
 
 ```gradle
 dependencies {
@@ -124,7 +124,7 @@ val result: ActivityResult = startActivityAwaitResult<OtherActivity>()
 
 ### Gradle Dependency
 
-[ ![Download](https://api.bintray.com/packages/drummer-aidan/maven/inline-activity-result/images/download.svg) ](https://bintray.com/drummer-aidan/maven/inline-activity-result/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/drummer-aidan/maven/inline-activity-result%3Arxjava/images/download.svg) ](https://bintray.com/drummer-aidan/maven/inline-activity-result%3Arxjava/_latestVersion)
 
 ```gradle
 dependencies {
