@@ -14,7 +14,7 @@
 2. [Coroutines](#coroutines)
     1. [Gradle Dependency](#gradle-dependency-1)
     2. [Usage](#usage-1)
-3. [RxJava)(#rxjava)
+3. [RxJava](#rxjava)
     1. [Gradle Dependency](#gradle-dependency-2)
     2. [Usage](#usage-2)
 
